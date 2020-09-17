@@ -1,5 +1,8 @@
 const jwt = require('express-jwt')
 const secret = require('../config').secret
+const mongoose = require('mongoose')
+
+const Usuario = mongoose.model('Usuario')
 
 function getTokenFromHeader(req) {
   if (!req.headers.authorization) return null
@@ -25,9 +28,9 @@ const auth = {
   }),
 
   admin: function isAdmin(req, res, next) {
-    User.findById(req.payload.id).then((user) => {
-      if (!user) return res.sendStatus(401)
-      if (!user.role.includes('admin')) return res.sendStatus(401)
+    Usuario.findById(req.payload.id).then((usuario) => {
+      if (!usuario) return res.sendStatus(401)
+      if (!usuario.permissao.includes('admin')) return res.sendStatus(401)
       next()
     })
   }

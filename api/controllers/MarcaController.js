@@ -52,7 +52,7 @@ class MarcaController {
    * CARROS
    */
   // GET /:id/carros - showcarros
-  async showCarros(req, res, next) {
+  async showCarros(req, res) {
     const { offset, limit } = req.query
 
     const carros = await Carro.paginate(

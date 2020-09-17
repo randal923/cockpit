@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const mongoosePaginate = require('mongoose-paginate-v2')
+const mongoosePaginate = require('mongoose-paginate')
 const Schema = mongoose.Schema
 
 const CarroSchema = Schema(
   {
-    modelo: { type: String, required: true },
+    modelo: { type: String, required: true, unique: true },
     localizacao: { type: String, required: true },
     motor: { type: String, required: true },
     cambio: { type: String, required: true },

@@ -18,4 +18,8 @@ router.post('/senha-recuperada', asyncErrorHandler(usuarioController.completeRec
 router.get('/', auth.required, asyncErrorHandler(usuarioController.index))
 router.get('/:id', auth.required, asyncErrorHandler(usuarioController.show))
 
+// Admin
+router.get('/admin', auth.required, auth.admin, asyncErrorHandler(usuarioController.indexAdmin))
+router.get('/admin/:id', auth.required, auth.admin, asyncErrorHandler(usuarioController.showAdmin))
+
 module.exports = router

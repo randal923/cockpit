@@ -6,6 +6,7 @@ const ClienteSchema = Schema(
   {
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
     nome: { type: String, required: true },
+    sobreNome: { type: String, required: true },
     dataDeNascimento: { type: Date, required: true },
     cpf: { type: String, required: true },
     telefones: { type: [{ type: String }] },

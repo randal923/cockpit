@@ -97,6 +97,20 @@ class UsuarioController {
     })
   }
 
+  async indexAdmin(req, res) {
+    const offset = Number(req.query.offset) || 0
+    const limit = Number(req.query.limit) || 30
+
+    const usuarios = await Usuario.paginate({}, { offset, limit, populate: { path: 'usuario', select: '-salt -hash' } })
+    return res.send({ usuarios })
+  }
+
+  // GET /admin/:id
+  async showAdmin(req, res) {
+    const usuario = await Usuario.findOne({ _id: req.params.id })
+    return res.send({ usuario })
+  }
+
   // GET /senha-recuperada
   async showCompleteRecovery(req, res, next) {
     if (!req.query.token) return res.render('recovery', { error: 'Token não identificado', success: null })

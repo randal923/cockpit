@@ -72,7 +72,7 @@ class CarroController {
   }
 
   // PUT /:id
-  async update(req, res, next) {
+  async update(req, res) {
     const {
       modelo,
       localizacao,
@@ -139,11 +139,14 @@ class CarroController {
   // PUT /images/:id
   async uploadImages(req, res) {
     const carro = await Carro.findOne({ _id: req.params.id })
+    const usuario = await Usuario.findById(req.payload.id)
+
     if (!carro) return res.status(400).send({ error: 'Carro não encontrado.' })
 
     const filtro = usuario.carros.filter((item) => item.toString() === carro._id.toString())
 
-    if (filtro.length === 0) return res.status(401).send({ error: 'Usuário não autorizado a modificar esse carro.' })
+    if (filtro.length === 0 || !usuario.permissao.includes('admin'))
+      return res.status(401).send({ error: 'Usuário não autorizado a modificar esse carro.' })
 
     const novasImagens = req.files.map((item) => item.filename)
     carro.fotos = carro.fotos.filter((item) => item).concat(novasImagens)
@@ -178,7 +181,7 @@ class CarroController {
     const offset = Number(req.query.offset) || 0
     const limit = Number(req.query.limit) || 30
 
-    const carros = await Carro.paginate({}, { offset, limit, sort: getSort(req.query.sortType) })
+    const carros = await Carro.paginate({}, { offset, limit, sort: getSort(req.query.sortType), populate: ['marca'] })
 
     return res.send({ carros })
   }
