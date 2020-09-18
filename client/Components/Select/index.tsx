@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {useState} from 'react'
 
 interface IOptions {
   label: string
@@ -10,18 +9,19 @@ interface IProps {
   label: string
   title: string
   options: IOptions[]
-  handleOptionChange: (e: any) => void
+  tipo: string
+  handleOptionChange: (e: any, tipo: string) => void
 }
 
 const Select = (props: IProps) => {
   return (
     <Container>
-      <select onChange={(event: any) => props.handleOptionChange(event)}>
+      <select onChange={(event: any) => props.handleOptionChange(event, props.tipo)}>
         {props.options?.map((option) => {
           return (
-            <option key={option.label} value={option.label}>
-              {option.label}
-            </option>
+              <option key={option.label} value={option.value}>
+                {option.label}
+              </option>
           )
         })}
       </select>

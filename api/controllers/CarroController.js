@@ -191,11 +191,19 @@ class CarroController {
     const offset = Number(req.query.offset) || 0
     const limit = Number(req.query.limit) || 30
 
-    let query = req.body
+    const query = req.body
 
-    Object.keys(query).forEach((value) => {
-      query[value] = new RegExp(`^${query[value]}$`, 'i')
+    Object.keys(query).forEach((key) => {
+      if (key === 'preco') {
+        query[key] = { $gte: query[key][0], $lte: query[key][1] }
+      }
+
+      if (key !== 'preco') {
+        query[key] = new RegExp(`^${query[key]}$`, 'i')
+      }
     })
+
+    console.log(query)
 
     const carros = await Carro.paginate(query, {
       offset,

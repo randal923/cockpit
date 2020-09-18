@@ -48,6 +48,25 @@ class MarcaController {
     return res.send({ deletado: true })
   }
 
+  async search(req, res) {
+    const offset = Number(req.query.offset) || 0
+    const limit = Number(req.query.limit) || 30
+
+    let query = req.body
+
+    Object.keys(query).forEach((value) => {
+      query[value] = new RegExp(`^${query[value]}$`, 'i')
+    })
+
+    const marcas = await Marca.paginate(query, {
+      offset,
+      limit,
+      populate: ['carros']
+    })
+
+    return res.send({ marcas })
+  }
+
   /**
    * CARROS
    */

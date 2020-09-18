@@ -4,11 +4,15 @@ import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/core/Slider'
 import { toMoney } from '../../utils/format';
 
+interface IProps {
+  handlePriceSlider: (newValue: number[], tipo: string) => void
+}
+const RangeSlider = (props: IProps) => {
+  const [value, setValue] = useState<number[]>([0, 500000])
 
-const RangeSlider = () => {
-  const [value, setValue] = useState<number[]>([50000, 500000])
 
-  const handleChange = (event: any, newValue: number | number[]) => {
+  const handleChange = (event: any, newValue: number[]) => {
+    props.handlePriceSlider(newValue, 'preco')
     setValue(newValue as number[])
   }
 

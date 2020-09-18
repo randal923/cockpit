@@ -9,4 +9,6 @@ const Body = (props: IBody) => <BodyContainer>{props.children}</BodyContainer>
 
 export default Body
 
-const BodyContainer = styled.main``
+const BodyContainer = styled.main`
+  height: 100%;
+`

@@ -4,10 +4,14 @@ export default createGlobalStyle`
     html,
     body {
         font-size: 62.5%;
+        height: calc(100% - 70px);
         background: var(--border-color);
         -webkit-font-smoothing: antialiased !important;
     }
 
+    #__next {
+        height: 100%;
+    }
     *,
     *::after,
     *::before {

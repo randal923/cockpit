@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const mongoosePaginate = require('mongoose-paginate')
 
 const MarcaSchema = Schema(
   {
@@ -8,5 +9,7 @@ const MarcaSchema = Schema(
   },
   { timestamps: true }
 )
+
+MarcaSchema.plugin(mongoosePaginate)
 
 module.exports = mongoose.model('Marca', MarcaSchema)
