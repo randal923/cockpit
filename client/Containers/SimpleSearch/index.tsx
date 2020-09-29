@@ -3,26 +3,15 @@ import { useEffect, useState } from 'react'
 import Select from '../../Components/Select/index'
 import RangeSlider from '../../Components/RangeSlider/index'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCarros, searchCarros } from '../../redux/carros'
+import { searchCarros, getCarros } from '../../redux/carros';
 import {anos} from '../../utils/data'
 import Button from '@material-ui/core/Button'
 import Link from 'next/link'
-import axios from 'axios'
+import { NextPage } from 'next'
 
-interface IOptions {
-  label: string
-  value: string
-}
-
-const SimpleSearch = (): any => {
+const SimpleSearch: NextPage = (): any => {
   const [search, setSearch] = useState({ preco: [0, 500000] })
-
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getCarros())
-  }, [dispatch])
-
 
   const carros = useSelector((state) => state.carros.carros?.docs.map((carro) => {
     return {
@@ -31,6 +20,10 @@ const SimpleSearch = (): any => {
     }
     })
   )
+
+  useEffect(() => {
+    dispatch(getCarros())
+  }, [])
 
   function handleOptionChange(e: any, tipo: string) {
     e.persist()
@@ -72,7 +65,6 @@ const SimpleSearch = (): any => {
 }
 
 export default SimpleSearch
-
 
 const Container = styled.div`
   background: white;

@@ -1,19 +1,24 @@
 import React from 'react'
 import Layout from '../Containers/Layout'
-import { useStore } from '../redux/store'
-import { Provider } from 'react-redux'
-import type { AppProps } from 'next/app'
+import {Provider} from 'react-redux'
+import { createWrapper } from 'next-redux-wrapper'
+import {store, persistor} from '../redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
+import Loading from '../Components/Loading/index';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
-  const store = useStore(pageProps.initialReduxState)
-
+const MyApp = ({ Component, pageProps }) => {
   return (
     <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <PersistGate loading={<Loading />} persistor={persistor}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>
     </Provider>
   )
 }
 
-export default MyApp
+const makeStore = () => store
+const wrapper = createWrapper(makeStore)
+
+export default wrapper.withRedux(MyApp)

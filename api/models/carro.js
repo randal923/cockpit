@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const CarroSchema = Schema(
   {
-    modelo: { type: String, required: true, unique: true },
+    modelo: { type: String, required: true },
     localizacao: { type: String, required: true },
     motor: { type: String, required: true },
     cambio: { type: String, required: true },
@@ -15,6 +15,8 @@ const CarroSchema = Schema(
     cor: { type: String, required: true },
     cilindrada: { type: String, required: true },
     ano: { type: String, required: true },
+    quilometragem: { type: String, required: true },
+    combustivel: { type: String, required: true },
     fotos: { type: Array, default: [] },
     preco: { type: Number, required: true },
     promocao: { type: Number },

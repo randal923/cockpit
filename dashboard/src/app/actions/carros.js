@@ -46,6 +46,8 @@ export const salvarCarro = (carro, cb) => {
           cor: carro.cor,
           cilindrada: carro.cilindrada,
           ano: carro.ano,
+          quilometragem: carro.quilometragem,
+          combustivel: carro.combustivel,
           preco: carro.preco,
           promocao: carro.promocao
         },

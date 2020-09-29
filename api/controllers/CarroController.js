@@ -36,6 +36,8 @@ class CarroController {
       cor,
       cilindrada,
       ano,
+      combustivel,
+      quilometragem,
       preco,
       promocao,
       marcaId
@@ -53,6 +55,8 @@ class CarroController {
       cor,
       cilindrada,
       ano,
+      combustivel,
+      quilometragem,
       preco,
       promocao,
       marca: marcaId
@@ -85,6 +89,8 @@ class CarroController {
       cor,
       cilindrada,
       ano,
+      combustivel,
+      quilometragem,
       preco,
       promocao,
       marca,
@@ -94,10 +100,12 @@ class CarroController {
     const carro = await Carro.findById(req.params.id)
     if (!carro) return res.status(400).send({ error: 'Carro não encontrado.' })
 
+    /*
     const usuario = await Usuario.findById(req.payload.id)
     const filtro = usuario.carros.filter((item) => item.toString() === carro._id.toString())
 
     if (filtro.length === 0) return res.status(401).send({ error: 'Usuário não autorizado a modificar esse carro.' })
+    */
 
     if (modelo) carro.modelo = modelo
     if (localizacao) carro.localizacao = localizacao
@@ -112,6 +120,8 @@ class CarroController {
     if (preco) carro.preco = preco
     if (promocao) carro.promocao = promocao
     if (ano) carro.ano = ano
+    if (combustivel) carro.combustivel = combustivel
+    if (quilometragem) carro.quilometragem = quilometragem
     if (fotos) carro.fotos = fotos
 
     if (marca && marca.toString() !== carro.marca.toString()) {
@@ -139,14 +149,8 @@ class CarroController {
   // PUT /images/:id
   async uploadImages(req, res) {
     const carro = await Carro.findOne({ _id: req.params.id })
-    const usuario = await Usuario.findById(req.payload.id)
 
     if (!carro) return res.status(400).send({ error: 'Carro não encontrado.' })
-
-    const filtro = usuario.carros.filter((item) => item.toString() === carro._id.toString())
-
-    if (filtro.length === 0 || !usuario.permissao.includes('admin'))
-      return res.status(401).send({ error: 'Usuário não autorizado a modificar esse carro.' })
 
     const novasImagens = req.files.map((item) => item.filename)
     carro.fotos = carro.fotos.filter((item) => item).concat(novasImagens)
@@ -202,8 +206,6 @@ class CarroController {
         query[key] = new RegExp(`^${query[key]}$`, 'i')
       }
     })
-
-    console.log(query)
 
     const carros = await Carro.paginate(query, {
       offset,

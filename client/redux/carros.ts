@@ -1,8 +1,10 @@
 import axios from 'axios'
+import config from '../utils/config'
 
 const types = {
   GET_CARROS: 'GET_CARROS',
-  GET_SEARCHED_CARROS: 'GET_SEARCHED_CARROS'
+  GET_SEARCHED_CARROS: 'GET_SEARCHED_CARROS',
+  GET_CARRO: 'GET_CARRO'
 }
 
 export const getCarros = () => async (dispatch) => {
@@ -21,6 +23,14 @@ export const searchCarros = (search: any) => async (dispatch) => {
   })
 }
 
+export const getCarro = (_id: string | string[]) => async (dispatch) => {
+  const carro = await axios.get(`${config.api}/carros/${_id}`)
+  return dispatch({
+    type: types.GET_CARRO,
+    payload: carro.data.carro
+  })
+}
+
 const carrosReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.GET_CARROS:
@@ -32,6 +42,11 @@ const carrosReducer = (state = [], { type, payload }) => {
       return {
         ...state,
         searchedCarros: payload
+      }
+    case types.GET_CARRO:
+      return {
+        ...state,
+        carro: payload
       }
     default:
       return state

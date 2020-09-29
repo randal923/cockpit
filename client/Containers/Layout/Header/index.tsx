@@ -26,7 +26,7 @@ const Header = () => {
     <>
       <HeaderContainer>
         <HamburgerSearch>
-          <Hamburger openModal={openModal} onClick={() => handleModalClick()}></Hamburger>
+          <Hamburger openModal={openModal} onClick={() => handleModalClick()} />
           <AiOutlineSearch size={22} />
         </HamburgerSearch>
         <Logo>

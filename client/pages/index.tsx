@@ -11,7 +11,6 @@ const Home = () => {
 
 export default Home
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;

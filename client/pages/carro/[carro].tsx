@@ -1,7 +1,13 @@
-import Carro from '../../Containers/Carro/Hero'
-
+import styled from 'styled-components'
+import { getCarro } from '../../redux/carros';
+import { useSelector } from 'react-redux';
 export default function CarroPage() {
+  const carro = useSelector(state => state.carros.carro)
   return (
-      <Carro />
+      <Container>
+        <h2></h2>
+      </Container>
   )
 }
+
+const Container = styled.div``

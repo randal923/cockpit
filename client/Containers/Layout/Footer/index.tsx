@@ -10,7 +10,7 @@ export default Footer
 
 
 const Container = styled.div`
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 interface IOptions {
   label: string
   value: string
@@ -16,12 +15,15 @@ interface IProps {
 const Select = (props: IProps) => {
   return (
     <Container>
-      <select onChange={(event: any) => props.handleOptionChange(event, props.tipo)}>
+      <select defaultValue={'DEFAULT'} onChange={(event: any) => props.handleOptionChange(event, props.tipo)}>
+        <option value="DEFAULT">
+          {props.title}
+        </option>
         {props.options?.map((option) => {
           return (
-              <option key={option.label} value={option.value}>
-                {option.label}
-              </option>
+            <option key={option.label} value={option.value}>
+              {option.value}
+            </option>
           )
         })}
       </select>
