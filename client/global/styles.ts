@@ -3,24 +3,26 @@ import { createGlobalStyle } from 'styled-components'
 export default createGlobalStyle`
     html,
     body {
+		margin: 0;
+		font-weight: 400;
+        padding: 0;
         font-size: 62.5%;
         height: calc(100% - 70px);
         background: var(--border-color);
         -webkit-font-smoothing: antialiased !important;
+				font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+				Helvetica Neue, sans-serif;
     }
 
+    ul {
+      list-style-type: none;
+    }
+    
     #__next {
         height: 100%;
     }
-    *,
-    *::after,
-    *::before {
-        margin: 0;
-        padding: 0;
+    * {
         box-sizing: border-box;
-        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-		Helvetica Neue, sans-serif;
-        font-weight: 400;
     }
 
     h2 {
@@ -36,10 +38,13 @@ export default createGlobalStyle`
     :root {
         --black: #000000;
         --brighter-black: #121212;
+        --select-background: #222;
         --white: #ffffff;
         --dark-white: #f8f8f8;
         --darker-white: #e9e9e9;
         --border-color: #f0f0f0;
+        --light-grey: #f4f4f4;
+        --medium-grey: #ccc;
 
         --h2-color: #999999;
 
@@ -53,6 +58,6 @@ export default createGlobalStyle`
 
         --box-shadow: 1px 0px 2px rgba(0,0,0,0.25);
         --border: solid 0.5px var(--border-color);
+        --button-hover: #c80a2e;
     }
-
 `

@@ -1,18 +1,23 @@
 import styled, { css } from 'styled-components'
 import HeaderMenu from './HeaderMenu'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-
 import { AiOutlineSearch } from 'react-icons/ai'
 import { HiShoppingCart } from 'react-icons/hi'
+import { useSelector, useDispatch } from 'react-redux'
+import { AiOutlineUser } from "react-icons/ai"
+import { MdKeyboardArrowDown } from "react-icons/md"
+import UserMenu from './UserMenu'
 
-interface IProps {
+interface Props {
   openModal: boolean
   handleModalClick?: () => void
 }
 
 const Header = () => {
   const [openModal, setOpenModal] = useState(false)
+
+  const usuario = useSelector((state) => state.usuario.usuario)
 
   function handleModalClick() {
     if (openModal === true) {
@@ -27,7 +32,6 @@ const Header = () => {
       <HeaderContainer>
         <HamburgerSearch>
           <Hamburger openModal={openModal} onClick={() => handleModalClick()} />
-          <AiOutlineSearch size={22} />
         </HamburgerSearch>
         <Logo>
           <Link href="/">
@@ -36,7 +40,7 @@ const Header = () => {
             </a>
           </Link>
         </Logo>
-        <HiShoppingCart size={22} />
+        <UserMenu usuario={usuario} />
       </HeaderContainer>
       <HeaderMenu openModal={openModal} handleModalClick={handleModalClick} />
     </>
@@ -63,6 +67,17 @@ const HeaderContainer = styled.header`
     margin-right: 10px;
     justify-self: end;
   }
+
+  .login {
+    font-size: 1.3rem;
+    justify-self: end;
+    margin-right: 10px;
+    text-transform: uppercase;
+
+    :hover  {
+      color: var(--red);
+    }
+  }
 `
 
 const HamburgerSearch = styled.div`
@@ -86,7 +101,7 @@ const Logo = styled.div`
 `
 
 
-const Hamburger = styled.div<IProps>`
+const Hamburger = styled.div<Props>`
   width: 20px;
   height: 2px;
   background: var(--grey);

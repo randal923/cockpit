@@ -2,9 +2,9 @@ import React from 'react'
 import Layout from '../Containers/Layout'
 import {Provider} from 'react-redux'
 import { createWrapper } from 'next-redux-wrapper'
-import {store, persistor} from '../redux/store';
+import {store, persistor} from '../redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
-import Loading from '../Components/Loading/index';
+import Loading from '../Components/Loading/index'
 
 const MyApp = ({ Component, pageProps }) => {
   return (
@@ -16,6 +16,12 @@ const MyApp = ({ Component, pageProps }) => {
       </PersistGate>
     </Provider>
   )
+}
+
+MyApp.getInitialProps = async ({Component, ctx}) => {
+  return {
+    pageProps: Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+  }
 }
 
 const makeStore = () => store

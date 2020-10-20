@@ -4,7 +4,7 @@ import Select from '../../Components/Select/index'
 import RangeSlider from '../../Components/RangeSlider/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { searchCarros, getCarros } from '../../redux/carros';
-import {anos} from '../../utils/data'
+import { anos } from '../../utils/data'
 import Button from '@material-ui/core/Button'
 import Link from 'next/link'
 import { NextPage } from 'next'
@@ -12,7 +12,7 @@ import { NextPage } from 'next'
 const SimpleSearch: NextPage = (): any => {
   const [search, setSearch] = useState({ preco: [0, 500000] })
   const dispatch = useDispatch()
-
+  
   const carros = useSelector((state) => state.carros.carros?.docs.map((carro) => {
     return {
       label: carro.modelo,
@@ -78,6 +78,10 @@ const Container = styled.div`
 
   .MuiButton-containedSecondary {
     background-color: var(--red);
+
+    :hover {
+      background-color: var(--button-hover);
+    }
   }
   .MuiButton-root {
     font-size: 1.4rem;

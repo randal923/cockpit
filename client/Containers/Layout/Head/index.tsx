@@ -23,7 +23,10 @@ export default function PageHead() {
       <meta property="og:image" content={defaultOGImage} />
       <meta property="og:image:width" content="600" />
       <meta property="og:image:height" content="600" />
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet"></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap"
+        rel="stylesheet"
+      ></link>
     </Head>
   )
 }

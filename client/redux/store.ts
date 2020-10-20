@@ -14,6 +14,7 @@ const persistedReducer = persistReducer(persistConfig, reducers)
 const initialState = {}
 const middleware = [thunk]
 
-let store = createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
-let persistor = persistStore(store)
+const store = createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
+const persistor = persistStore(store)
+
 export { store, persistor }

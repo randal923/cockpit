@@ -23,7 +23,7 @@ export default function Hero(props: IProps) {
         <Container>
           <Card>
             <TituloCarro>
-              <img src={`${config.api}/public/images/${props.img}`} title="car" alt="imagem_carro" />
+              <img src={props.img ? `${config.api}/public/images/${props.img}` : '/default_vehicle_720.png'} title="car" alt="imagem_carro" />
               <h2>{props.modelo}</h2>
               <span>R$ {toMoney(parseInt(props.preco))}</span>
             </TituloCarro>

@@ -28,6 +28,7 @@ class CarroController {
       modelo,
       localizacao,
       motor,
+      descricao,
       cambio,
       sobrealimentado,
       suspencao,
@@ -40,12 +41,14 @@ class CarroController {
       quilometragem,
       preco,
       promocao,
-      marcaId
+      marcaId,
+      items
     } = req.body
 
     const carro = new Carro({
       modelo,
       localizacao,
+      descricao,
       motor,
       cambio,
       sobrealimentado,
@@ -59,7 +62,8 @@ class CarroController {
       quilometragem,
       preco,
       promocao,
-      marca: marcaId
+      marca: marcaId,
+      items
     })
 
     const marca = await Marca.findById(marcaId)
