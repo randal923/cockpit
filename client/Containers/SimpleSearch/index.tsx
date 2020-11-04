@@ -55,11 +55,11 @@ const SimpleSearch: NextPage = (): any => {
         tipo="ano"
       />
       <RangeSlider handlePriceSlider={handlePriceSlider} />
-      <Button variant="contained" color="secondary" onClick={handleOnClick}>
-        <Link href={`/carros`}>
-          <a>VER OFERTAS</a>
-        </Link>
-      </Button>
+      <Link href={`/carros`}>
+        <Button variant="contained" color="secondary" onClick={handleOnClick}>
+            <a>VER OFERTAS</a>
+        </Button>
+      </Link>
     </Container>
   )
 }

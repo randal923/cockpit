@@ -45,6 +45,7 @@ export default createGlobalStyle`
         --border-color: #f0f0f0;
         --light-grey: #f4f4f4;
         --medium-grey: #ccc;
+        --material-border: 1px solid #8b8b8b;
 
         --h2-color: #999999;
 

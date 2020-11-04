@@ -2,6 +2,8 @@ import axios from 'axios'
 import config from '../utils/config'
 import { setCookie, removeCookie } from '../utils/cookie'
 import Router from 'next/router'
+import { errorHandler } from './error';
+import { showSnack } from './snack'
 
 const types = {
   GET_USER: 'GET_USER',
@@ -31,18 +33,21 @@ export const login = (login: Login) => async (dispatch) => {
   
     setCookie('token', data.usuario.token)
     if (data.usuario.token) Router.push('/')
+    dispatch(showSnack('success', 'Usuário logado com sucesso.'))
+
     return dispatch({
       type: types.GET_USER,
       payload: data
     })
-  }catch(e) {
-    console.log('error', e.name)
+  }catch(error) {
+    dispatch(errorHandler(error))
   }
 }
 
 export const logOut = () => (dispatch) => {
   removeCookie('token')
   Router.push('/')
+  dispatch(showSnack('success', 'Usuário deslogado com sucesso.'))
   dispatch({ type: types.LOG_OUT, payload: {} })
 }
 

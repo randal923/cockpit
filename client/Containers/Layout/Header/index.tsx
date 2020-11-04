@@ -17,7 +17,7 @@ interface Props {
 const Header = () => {
   const [openModal, setOpenModal] = useState(false)
 
-  const usuario = useSelector((state) => state.usuario.usuario)
+  const usuario = useSelector((state) => state.auth.usuario)
 
   function handleModalClick() {
     if (openModal === true) {

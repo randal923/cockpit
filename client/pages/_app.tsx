@@ -1,24 +1,45 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Layout from '../Containers/Layout'
-import {Provider} from 'react-redux'
+import { Provider, useSelector, useDispatch } from 'react-redux'
 import { createWrapper } from 'next-redux-wrapper'
 import {store, persistor} from '../redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import Loading from '../Components/Loading/index'
+import Snack from '../Components/Snack'
+import { removeError } from '../redux/error'
+import { showSnack } from '../redux/snack'
+import { getCookie } from '../utils/cookie'
+import { logOut, reauthenticate } from '../redux/auth'
+import Router from 'next/router'
 
 const MyApp = ({ Component, pageProps }) => {
+  const dispatch = useDispatch()
+  const error = useSelector(state => state.error?.error)
+  const snackStatus = useSelector(state => state.snack?.snack)
+
+  if(error) {
+    dispatch(showSnack('error', error.response?.data.error))
+    dispatch(removeError())
+  }
+
+  
+
   return (
-    <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </PersistGate>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <PersistGate loading={<Loading />} persistor={persistor}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PersistGate>
+      </Provider>
+      {snackStatus && <Snack />}
+    </>
   )
 }
 
 MyApp.getInitialProps = async ({Component, ctx}) => {
+
   return {
     pageProps: Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
   }

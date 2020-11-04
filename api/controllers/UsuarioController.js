@@ -17,7 +17,7 @@ class UsuarioController {
   // GET /
   async index(req, res) {
     const usuario = await Usuario.findById(req.payload.id)
-    if (!usuario) return res.status(401).json({ errors: 'Usuario não registrado' })
+    if (!usuario) return res.status(401).json({ error: 'Usuario não registrado' })
 
     return res.json({ usuario: usuario.enviarAuthJSON() })
   }
@@ -25,7 +25,7 @@ class UsuarioController {
   // GET /:id
   async show(req, res) {
     const usuario = await Usuario.findById(req.params.id)
-    if (!usuario) return res.status(401).json({ errors: 'Usuario não registrado' })
+    if (!usuario) return res.status(401).json({ error: 'Usuario não registrado' })
 
     return res.json({
       usuario: {
@@ -42,7 +42,7 @@ class UsuarioController {
     const { nome, sobreNome, email, password } = req.body
 
     const usuario = await Usuario.findById(req.payload.id)
-    if (!usuario) return res.status(401).json({ errors: 'Usuario não registrado' })
+    if (!usuario) return res.status(401).json({ error: 'Usuario não registrado' })
 
     if (typeof nome !== 'undefined') usuario.nome = nome
     if (typeof sobreNome !== 'undefined') usuario.sobreNome = sobreNome
@@ -56,7 +56,7 @@ class UsuarioController {
   // DELETE /
   async remove(req, res, next) {
     const usuario = await Usuario.findById(req.payload.id)
-    if (!usuario) return res.status(401).json({ errors: 'Usuario não registrado' })
+    if (!usuario) return res.status(401).json({ error: 'Usuario não registrado' })
 
     await usuario.remove()
     return res.json({ deletado: true })
@@ -68,8 +68,8 @@ class UsuarioController {
 
     const usuario = await Usuario.findOne({ email })
 
-    if (!usuario) return res.status(401).json({ errors: 'Usuario não registrado' })
-    if (!usuario.validarSenha(password)) return res.status(401).json({ errors: 'Senha inválida' })
+    if (!usuario) return res.status(401).json({ error: 'Usuario não registrado' })
+    if (!usuario.validarSenha(password)) return res.status(401).json({ error: 'Senha inválida' })
 
     return res.json({ usuario: usuario.enviarAuthJSON() })
   }

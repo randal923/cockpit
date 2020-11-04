@@ -8,11 +8,11 @@ export const removeCookie = (key: string) => {
   if (process.browser) cookie.remove(key, { expires: 1 })
 }
 
-export const getCookie = (key: string, req) => {
+export const getCookie = (key: string, req: any) => {
   return process.browser ? getCookieFromBrowser(key) : getCookieFromServer(key, req)
 }
 
-const getCookieFromBrowser = (key: string) => cookie.get(key)
+export const getCookieFromBrowser = (key: string) => cookie.get(key)
 
 const getCookieFromServer = (key: string, req) => {
   if (!req.headers.cookie) return undefined

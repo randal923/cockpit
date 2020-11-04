@@ -1,10 +1,13 @@
 import styled from 'styled-components'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { AiOutlineUser } from 'react-icons/ai'
-import { MdKeyboardArrowDown } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
 import { logOut } from '../../../../redux/auth'
+
+//Icons
+import { AiOutlineUser } from 'react-icons/ai'
+import { MdKeyboardArrowDown } from 'react-icons/md'
+import { RiLogoutBoxLine } from "react-icons/ri"
 
 interface Props {
   usuario: any
@@ -13,17 +16,35 @@ interface Props {
 const UserMenu = (props: Props) => {
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const dispatch = useDispatch()
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const dropDown = document.getElementById('dropdown')
+    if (openUserMenu) {
+      dropDown.style.opacity = '0.95'
+      dropDown.style.visibility = 'visible'
+
+    } else {
+      dropDown.style.opacity = '0'
+      dropDown.style.visibility = 'hidden'
+    }
+
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target) && openUserMenu) {
+        handleUserOnClick()
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+
+  }, [wrapperRef, openUserMenu])
+
 
   const handleUserOnClick = (): void => {
-    const dropDown = document.getElementById('dropdown')
-
-    if (openUserMenu === false) {
-      setOpenUserMenu(true)
-      dropDown.style.opacity = '0.95'
-    } else {
-      setOpenUserMenu(false)
-      dropDown.style.opacity = '0'
-    }
+    setOpenUserMenu(!openUserMenu)
   }
 
   const signOut = () => {
@@ -35,18 +56,28 @@ const UserMenu = (props: Props) => {
     <>
       {props.usuario ? (
         <MenuDropDown>
-          <User onClick={handleUserOnClick}>
+          <User onClick={handleUserOnClick} ref={wrapperRef}>
             <AiOutlineUser />
             <MdKeyboardArrowDown />
           </User>
           <DropDown id="dropdown">
-            <ul>
+            <ul onClick={handleUserOnClick}>
               <li>
-                <Link href="/usuario/dados">
-                  <a>{props.usuario.nome}</a>
+                <Link href="/usuario/conta">
+                  <div>
+                    <AiOutlineUser />
+                    <a>
+                      Editar Perfil
+                    </a>
+                  </div>
                 </Link>
               </li>
-              <li onClick={signOut}>Sair</li>
+              <li onClick={signOut}>
+                <div>
+                  <RiLogoutBoxLine />
+                  Sair
+                </div>
+              </li>
             </ul>
           </DropDown>
         </MenuDropDown>
@@ -66,6 +97,7 @@ const MenuDropDown = styled.div`
   justify-content: flex-end;
   margin-right: 15px;
   position: relative;
+  z-index: 5;
 `
 
 const User = styled.div`
@@ -97,7 +129,7 @@ const User = styled.div`
 `
 
 const DropDown = styled.div`
-  background: var(--grey);
+  background: white;
   position: absolute;
   width: 150px;
   top: 222%;
@@ -105,34 +137,45 @@ const DropDown = styled.div`
   opacity: 0;
   transition: opacity 0.3s;
   box-shadow: var(--box-shadow);
+
   ul {
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: start;
     margin: 0;
     padding: 0;
 
     li {
-      padding: 5px;
+      padding: 15px;
       width: 100%;
-      color: white;
+      color: black;
       font-size: 1.3rem;
       :not(:last-child) {
         border-bottom: var(--border);
       }
 
       :hover {
-        background: var(--dark-grey);
         cursor: pointer;
+        text-decoration: underline;
       }
 
-      a {
-        font-size: 1.3rem;
-        color: white;
-        width: 100%;
-        display: block;
+      div {
+        display: flex;
+        align-items: center;
+
+        a {
+          font-size: 1.3rem;
+          color: black;
+          width: 100%;
+        }
+
+        svg {
+          margin-right: 5px;
+          min-width: 18px;
+          min-height: 18px;
+        }
       }
     }
+
+    
   }
 `
