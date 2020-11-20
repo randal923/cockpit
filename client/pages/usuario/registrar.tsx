@@ -3,10 +3,12 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { login } from '../redux/auth'
-import Link from 'next/link'
+import { registerUser } from '../../redux/usuario'
 
-const Login = () => {
+
+const Registrar = () => {
+  const [nome, setNome] = useState('')
+  const [sobreNome, setSobreNome] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
@@ -16,18 +18,34 @@ const Login = () => {
   }
 
  function handleOnClick () {
-    if(email && password) {
-      dispatch(login({ email, password }))
+    if(nome && sobreNome && email && password) {
+      dispatch(registerUser(nome, sobreNome, email, password))
     }
   }
 
   return (
     <Container>
-      <h2>Para entrar na sua conta e gerenciar seus dados, inscrição e conteudo, preencha abaixo.</h2>
+      <h2>Registre sua conta preenchendo os campos abaixo.</h2>
       <form noValidate autoComplete="on">
         <div>
           <TextField
-            id="outlined-email-input"
+            id="outlined-text-input"
+            label="Nome"
+            type="text"
+            autoComplete="nome"
+            variant="outlined"
+            onChange={handleOnChange.bind(this, setNome)}
+          />
+          <TextField
+            id="outlined-text-input"
+            label="Sobre Nome"
+            type="text"
+            autoComplete="sobreNome"
+            variant="outlined"
+            onChange={handleOnChange.bind(this, setSobreNome)}
+          />
+          <TextField
+            id="outlined-text-input"
             label="Email"
             type="email"
             autoComplete="email"
@@ -45,18 +63,13 @@ const Login = () => {
         </div>
       </form>
       <Button variant="contained" color="secondary" onClick={handleOnClick}>
-        ENTRAR
+        REGISTRAR
       </Button>
-      <Link href="/usuario/recuperar-senha">
-        <a className="recuperar-senha">
-          Recuperar Senha
-        </a>
-      </Link>
     </Container>
   )
 }
 
-export default Login
+export default Registrar
 
 const Container = styled.div`
   display: flex;
@@ -65,21 +78,12 @@ const Container = styled.div`
   align-items: center;
   margin-top: 20px;
 
-  .recuperar-senha {
-    font-size: 1.2rem;
-    color: var(--blue);
-    margin: 10px;
-
-    :hover {
-      color: var(--red);
-    }
-  }
-
   h2 {
     color: black;
     text-align: center;
     max-width: 300px;
   }
+
   form {
     div {
       display: flex;

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Layout from '../Containers/Layout'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import { createWrapper } from 'next-redux-wrapper'
@@ -8,9 +8,6 @@ import Loading from '../Components/Loading/index'
 import Snack from '../Components/Snack'
 import { removeError } from '../redux/error'
 import { showSnack } from '../redux/snack'
-import { getCookie } from '../utils/cookie'
-import { logOut, reauthenticate } from '../redux/auth'
-import Router from 'next/router'
 
 const MyApp = ({ Component, pageProps }) => {
   const dispatch = useDispatch()
@@ -21,8 +18,6 @@ const MyApp = ({ Component, pageProps }) => {
     dispatch(showSnack('error', error.response?.data.error))
     dispatch(removeError())
   }
-
-  
 
   return (
     <>

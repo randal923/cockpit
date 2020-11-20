@@ -1,12 +1,8 @@
 import styled, { css } from 'styled-components'
 import HeaderMenu from './HeaderMenu'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { HiShoppingCart } from 'react-icons/hi'
-import { useSelector, useDispatch } from 'react-redux'
-import { AiOutlineUser } from "react-icons/ai"
-import { MdKeyboardArrowDown } from "react-icons/md"
+import { useSelector } from 'react-redux'
 import UserMenu from './UserMenu'
 
 interface Props {
@@ -66,17 +62,6 @@ const HeaderContainer = styled.header`
   svg {
     margin-right: 10px;
     justify-self: end;
-  }
-
-  .login {
-    font-size: 1.3rem;
-    justify-self: end;
-    margin-right: 10px;
-    text-transform: uppercase;
-
-    :hover  {
-      color: var(--red);
-    }
   }
 `
 

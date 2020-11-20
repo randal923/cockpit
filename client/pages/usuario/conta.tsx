@@ -1,32 +1,43 @@
 import styled from 'styled-components'
 import Input from '../../Components/Input/index'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {useState} from 'react'
 import Button from '@material-ui/core/Button'
+import { updateUser } from '../../redux/usuario'
 
 const Conta = () => {
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("fakepassword123")
+  const [disabled, setDisabled] = useState(true)
   const usuario = useSelector(state => state.auth.usuario)
-
+  const dispatch = useDispatch()
 
   function handleOnChange (setIdentifierState, event) {
+    setDisabled(false)
     setIdentifierState(event.target.value);
   }
 
   function handleOnClick() {
-    console.log(email, password)
+    dispatch(updateUser(email, password))
+  }
+
+  function handleOnFocus(e) {
+    e.target.value = ''
+  }
+
+  function handleOnBlur(e) {
+    e.target.value = password
   }
 
   return (
     <Container>
       <h1>Editar meu perfil</h1>
       <Form>
-        <Input defaultValue={usuario.nome} label={"Nome"} type={"text"} disabled />
-        <Input defaultValue={usuario.sobreNome} label={"Sobre Nome"} type={"text"} disabled/>
-        <Input defaultValue={usuario.email} label={"Email"} type={"email"} onChange={handleOnChange.bind(this, setEmail)}/>
-        <Input defaultValue={"fakepassword123"} label={"Senha"} type={"password"} onChange={handleOnChange.bind(this, setPassword)}/>
-        <Button variant="contained" color="secondary" onClick={handleOnClick}>
+        <Input defaultValue={usuario?.nome} label={"Nome"} type={"text"} disabled />
+        <Input defaultValue={usuario?.sobreNome} label={"Sobre Nome"} type={"text"} disabled/>
+        <Input defaultValue={usuario?.email} label={"Email"} type={"email"} onChange={handleOnChange.bind(this, setEmail)}/>
+        <Input defaultValue={password} label={"Senha"} type={"password"} onChange={handleOnChange.bind(this, setPassword)} onFocus={handleOnFocus} onBlur={handleOnBlur}/>
+        <Button id="salvar" variant="contained" color="secondary" onClick={handleOnClick} disabled={disabled}>
             <a>SALVAR ALTERAÇÕES</a>
         </Button>
       </Form>

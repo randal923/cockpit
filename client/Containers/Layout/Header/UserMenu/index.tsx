@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux'
 import { logOut } from '../../../../redux/auth'
 
 //Icons
-import { AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineUser, AiOutlineUserAdd, AiOutlineCar} from 'react-icons/ai'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { RiLogoutBoxLine } from "react-icons/ri"
+import DropDownMenu from '../../../../Components/DropDownMenu'
 
 interface Props {
   usuario: any
@@ -16,75 +17,75 @@ interface Props {
 const UserMenu = (props: Props) => {
   const [openUserMenu, setOpenUserMenu] = useState(false)
   const dispatch = useDispatch()
-  const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    const dropDown = document.getElementById('dropdown')
-    if (openUserMenu) {
-      dropDown.style.opacity = '0.95'
-      dropDown.style.visibility = 'visible'
-
-    } else {
-      dropDown.style.opacity = '0'
-      dropDown.style.visibility = 'hidden'
-    }
-
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target) && openUserMenu) {
-        handleUserOnClick()
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-
-  }, [wrapperRef, openUserMenu])
-
-
-  const handleUserOnClick = (): void => {
-    setOpenUserMenu(!openUserMenu)
-  }
 
   const signOut = () => {
     dispatch(logOut())
     handleUserOnClick()
   }
 
+  const handleUserOnClick = (): void => {
+    setOpenUserMenu(!openUserMenu)
+  }
+
   return (
     <>
       {props.usuario ? (
         <MenuDropDown>
-          <User onClick={handleUserOnClick} ref={wrapperRef}>
+          <User onClick={handleUserOnClick}>
             <AiOutlineUser />
             <MdKeyboardArrowDown />
           </User>
-          <DropDown id="dropdown">
-            <ul onClick={handleUserOnClick}>
+          <DropDownMenu openMenu={openUserMenu} onUserClick={handleUserOnClick}>
+            <ul>
               <li>
-                <Link href="/usuario/conta">
-                  <div>
-                    <AiOutlineUser />
-                    <a>
-                      Editar Perfil
-                    </a>
-                  </div>
+                <Link href="/carro/criar-anuncio">
+                    <div>
+                      <AiOutlineCar />
+                      <a onClick={handleUserOnClick}>Criar Anúncio</a>
+                    </div>
                 </Link>
               </li>
-              <li onClick={signOut}>
-                <div>
+              <li>
+                <Link href="/usuario/conta">
+                    <div>
+                      <AiOutlineUser />
+                      <a onClick={handleUserOnClick}>Editar Perfil</a>
+                    </div>
+                </Link>
+              </li>
+              <li onClick={handleUserOnClick}>
+                <div onClick={signOut} className="sair">
                   <RiLogoutBoxLine />
                   Sair
                 </div>
               </li>
             </ul>
-          </DropDown>
+          </DropDownMenu>
         </MenuDropDown>
       ) : (
-        <Link href="/login">
-          <a className="login">Login</a>
-        </Link>
+        <Entrar>
+          <h3 onClick={handleUserOnClick}>Entrar</h3>
+          <DropDownMenu openMenu={openUserMenu} onUserClick={handleUserOnClick}>
+            <ul>
+              <li>
+                <Link href="/login">
+                  <div>
+                    <AiOutlineUser />
+                    <a onClick={handleUserOnClick}>Login</a>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link href="/usuario/registrar">
+                  <div>
+                    <AiOutlineUserAdd />
+                    <a onClick={handleUserOnClick}>Registrar</a>
+                  </div>
+                </Link>
+              </li>
+            </ul>
+          </DropDownMenu>
+        </Entrar>
       )}
     </>
   )
@@ -92,12 +93,24 @@ const UserMenu = (props: Props) => {
 
 export default UserMenu
 
+
 const MenuDropDown = styled.div`
-  display: flex;
-  justify-content: flex-end;
   margin-right: 15px;
   position: relative;
   z-index: 5;
+  justify-self: flex-end;
+  width: 20px;
+
+  #dropdown {
+    position: absolute;
+    top: 45px;
+    left: -120px;
+
+    .sair:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 `
 
 const User = styled.div`
@@ -110,7 +123,7 @@ const User = styled.div`
   }
 
   svg {
-    margin: 0;
+    margin: 0 !important;
     color: var(--grey);
     height: 20px;
     width: 20px;
@@ -128,54 +141,25 @@ const User = styled.div`
   }
 `
 
-const DropDown = styled.div`
-  background: white;
-  position: absolute;
-  width: 150px;
-  top: 222%;
-  right: -10px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  box-shadow: var(--box-shadow);
+const Entrar = styled.div`
+ justify-self: flex-end;
+ width: 20px;
+ margin-right: 25px;
+ position: relative;
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-
-    li {
-      padding: 15px;
-      width: 100%;
-      color: black;
-      font-size: 1.3rem;
-      :not(:last-child) {
-        border-bottom: var(--border);
-      }
-
-      :hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-
-      div {
-        display: flex;
-        align-items: center;
-
-        a {
-          font-size: 1.3rem;
-          color: black;
-          width: 100%;
-        }
-
-        svg {
-          margin-right: 5px;
-          min-width: 18px;
-          min-height: 18px;
-        }
-      }
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    :hover  {
+      cursor: pointer;
+      color: var(--red);
     }
-
-    
   }
+
+ #dropdown {
+  position: absolute;
+  top: 55px;
+  left: -110px;
+ }
+
 `

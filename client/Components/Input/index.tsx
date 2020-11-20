@@ -3,17 +3,22 @@ import styled from 'styled-components'
 
 interface Props {
   label: string
-  defaultValue: string
+  defaultValue?: string
   helperText?: string
   type: string
   onChange?: (e: any) => void
   disabled?: boolean
+  onFocus?: (e) => void
+  onBlur?: (e) => void
+  value?: string
 }
 export default function Input(props: Props) {
   return (
     <Container>
       <div className="input">
         <TextField
+          onBlur={props.onBlur}
+          onFocus={props.onFocus}
           disabled={props.disabled}
           id="standard-helperText"
           label={props.label}

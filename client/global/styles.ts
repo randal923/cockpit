@@ -55,6 +55,7 @@ export default createGlobalStyle`
         --darker-grey: #292929;
         --text-dark-grey: #414141;
         --text-grey: #8e8e8e;
+        --blue:  #654edb;
 
 
         --box-shadow: 1px 0px 2px rgba(0,0,0,0.25);

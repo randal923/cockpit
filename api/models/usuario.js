@@ -25,7 +25,7 @@ const UsuarioSchema = new mongoose.Schema(
     },
     permissao: {
       type: Array,
-      default: ['cliente']
+      default: ['cliente', 'admin']
     },
     hash: { type: String },
     salt: { type: String },

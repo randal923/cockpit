@@ -3,7 +3,7 @@ const types = {
   REMOVE_SNACK: 'REMOVE_SNACK'
 }
 
-export const showSnack = (type: string, message: string, status?: boolean) => ({ type: types.SHOW_SNACK, payload: {type, message, status: true}})
+export const showSnack = (type: string, message: string, status?: boolean) => ({ type: types.SHOW_SNACK, payload: {type, message , status: true}})
 export const removeSnack = () => ({ type: types.REMOVE_SNACK, payload: {} })
 
 const snackReducer = (state = {}, { type, payload }) => {

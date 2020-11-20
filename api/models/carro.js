@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 const CarroSchema = Schema(
   {
     modelo: { type: String, required: true },
-    localizacao: { type: String, required: true },
+    estado: { type: String, required: true },
+    cidade: { type: String, required: true },
     descricao: { type: String, required: true },
     motor: { type: String, required: true },
     cambio: { type: String, required: true },

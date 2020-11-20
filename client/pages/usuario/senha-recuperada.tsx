@@ -3,37 +3,29 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { login } from '../redux/auth'
-import Link from 'next/link'
+import { completeRecover } from '../../redux/usuario'
+import { useRouter } from 'next/router'
 
-const Login = () => {
-  const [email, setEmail] = useState('')
+const SenhaRecuperada = () => {
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const router = useRouter()
+  const {token} = router.query
 
   function handleOnChange (setIdentifierState, event) {
     setIdentifierState(event.target.value);
   }
 
- function handleOnClick () {
-    if(email && password) {
-      dispatch(login({ email, password }))
-    }
+  function handleOnClick () {
+    console.log('password client', password)
+    dispatch(completeRecover(token, password))
   }
 
   return (
     <Container>
-      <h2>Para entrar na sua conta e gerenciar seus dados, inscrição e conteudo, preencha abaixo.</h2>
+      <h2>Por favor, digite uma nova senha.</h2>
       <form noValidate autoComplete="on">
         <div>
-          <TextField
-            id="outlined-email-input"
-            label="Email"
-            type="email"
-            autoComplete="email"
-            variant="outlined"
-            onChange={handleOnChange.bind(this, setEmail)}
-          />
           <TextField
             id="outlined-password-input"
             label="Password"
@@ -45,18 +37,13 @@ const Login = () => {
         </div>
       </form>
       <Button variant="contained" color="secondary" onClick={handleOnClick}>
-        ENTRAR
+        Criar nova senha
       </Button>
-      <Link href="/usuario/recuperar-senha">
-        <a className="recuperar-senha">
-          Recuperar Senha
-        </a>
-      </Link>
     </Container>
   )
 }
 
-export default Login
+export default SenhaRecuperada
 
 const Container = styled.div`
   display: flex;
@@ -64,16 +51,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-
-  .recuperar-senha {
-    font-size: 1.2rem;
-    color: var(--blue);
-    margin: 10px;
-
-    :hover {
-      color: var(--red);
-    }
-  }
 
   h2 {
     color: black;

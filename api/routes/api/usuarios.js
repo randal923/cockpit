@@ -10,7 +10,6 @@ router.post('/login', asyncErrorHandler(usuarioController.login))
 router.put('/', auth.required, asyncErrorHandler(usuarioController.update))
 router.delete('/', auth.required, asyncErrorHandler(usuarioController.remove))
 
-router.get('/recuperar-senha', asyncErrorHandler(usuarioController.showRecovery))
 router.post('/recuperar-senha', asyncErrorHandler(usuarioController.createRecovery))
 router.get('/senha-recuperada', asyncErrorHandler(usuarioController.showCompleteRecovery))
 router.post('/senha-recuperada', asyncErrorHandler(usuarioController.completeRecovery))
