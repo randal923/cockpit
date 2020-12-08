@@ -50,7 +50,7 @@ export const updateUser = (email: string, password: string) => async (dispatch) 
     const token = getCookieFromBrowser('token')
     await axios.put(`${config.api}/usuarios`, {email, password}, getHeaders(token))
     dispatch(logOut())
-    dispatch(showSnack('success', 'Alterações salvadas com sucesso. Por favor, faça um novo login.'))
+    dispatch(showSnack('success', 'Alterações salvas com sucesso. Por favor, faça um novo login.'))
     dispatch({ type: types.UPDATE_USER, payload: {} })
   }catch(error) {
     dispatch(errorHandler(error))

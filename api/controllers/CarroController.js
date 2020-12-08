@@ -26,6 +26,8 @@ class CarroController {
   async store(req, res, next) {
     const {
       modelo,
+      estado,
+      cidade,
       localizacao,
       motor,
       descricao,
@@ -47,6 +49,8 @@ class CarroController {
 
     const carro = new Carro({
       modelo,
+      estado,
+      cidade,
       localizacao,
       descricao,
       motor,

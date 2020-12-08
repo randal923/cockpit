@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {useState, useEffect} from 'react'
 import Loading from '../Components/Loading'
 import { useSelector } from 'react-redux'
-import Hero from '../Containers/Carro/Hero';
+import Hero from '../Containers/Carro/Hero'
 
 const Carros = () => {
   const [isLoading, setIsLoading] = useState(true)

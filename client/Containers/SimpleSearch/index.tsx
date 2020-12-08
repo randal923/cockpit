@@ -14,10 +14,10 @@ const SimpleSearch: NextPage = (): any => {
   const dispatch = useDispatch()
   
   const carros = useSelector((state) => state.carros.carros?.docs.map((carro) => {
-    return {
-      label: carro.modelo,
-      value: carro.modelo
-    }
+      return {
+        label: carro.modelo,
+        value: carro.modelo
+      }
     })
   )
 
@@ -57,7 +57,7 @@ const SimpleSearch: NextPage = (): any => {
       <RangeSlider handlePriceSlider={handlePriceSlider} />
       <Link href={`/carros`}>
         <Button variant="contained" color="secondary" onClick={handleOnClick}>
-            <a>VER OFERTAS</a>
+          <a>VER OFERTAS</a>
         </Button>
       </Link>
     </Container>

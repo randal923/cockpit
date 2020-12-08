@@ -1,11 +1,12 @@
 import axios from 'axios'
+import config from '../utils/config'
 
 const types = {
   GET_MARCAS: 'GET_MARCAS'
 }
 
 export const getMarcas = () => async (dispatch) => {
-  const marcas = await axios.get('http://localhost:5000/marcas')
+  const marcas = await axios.get(`${config.api}/marcas`)
 
   return dispatch({
     type: types.GET_MARCAS,

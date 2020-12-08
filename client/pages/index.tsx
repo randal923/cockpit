@@ -1,4 +1,4 @@
-import SimpleSearch from '../Containers/SimpleSearch/index';
+import SimpleSearch from '../Containers/SimpleSearch/index'
 import styled from 'styled-components'
 
 const Home = () => {
