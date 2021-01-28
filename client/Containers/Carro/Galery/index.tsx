@@ -2,7 +2,7 @@ import styled, {css, keyframes} from 'styled-components'
 import config from '../../../utils/config'
 import { useState, useEffect } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import breakPoint from '../../../utils/mediaQuery';
+import breakPoint from '../../../utils/mediaQuery'
 
 interface IProps {
   photos: [{

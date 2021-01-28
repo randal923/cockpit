@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../utils/config'
+import Router from 'next/router'
 import { getCookieFromBrowser } from '../utils/cookie'
 import { errorHandler } from './error';
 import { showSnack } from './snack'
@@ -17,9 +18,17 @@ const types = {
 
 export const registerUser = (nome: string, sobreNome: string, email: string, password: string) => async (dispatch) => {
   try {
-    await axios.post(`${config.api}/usuarios/registrar`, {nome, sobreNome, email, password})
+    const response = await axios.post(`${config.api}/usuarios/registrar`, {nome, sobreNome, email, password})
+
+    if(!response) return dispatch(showSnack('error', 'Ocorreu um erro, tente novamente.'))
+
     dispatch(showSnack('success', 'Usuario registrado com sucesso.'))
     dispatch({ type: types.REGISTER_USER, payload: {} })
+
+    setTimeout(() => { 
+      Router.push('/login') 
+    }, 1000);
+
   }catch(error) {
     dispatch(errorHandler(error))
   }

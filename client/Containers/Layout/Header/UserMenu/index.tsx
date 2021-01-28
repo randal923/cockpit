@@ -1,14 +1,18 @@
 import styled from 'styled-components'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
-import { logOut } from '../../../../redux/auth'
 
 //Icons
 import { AiOutlineUser, AiOutlineUserAdd, AiOutlineCar} from 'react-icons/ai'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { RiLogoutBoxLine } from "react-icons/ri"
+import { MdAttachMoney } from "react-icons/md"
+import { RiAdvertisementLine } from "react-icons/ri"
+
+// Components
 import DropDownMenu from '../../../../Components/DropDownMenu'
+import { useDispatch } from 'react-redux'
+import { logOut } from '../../../../redux/auth'
 
 interface Props {
   usuario: any
@@ -38,7 +42,23 @@ const UserMenu = (props: Props) => {
           <DropDownMenu openMenu={openUserMenu} onUserClick={handleUserOnClick}>
             <ul>
               <li>
-                <Link href="/carro/criar-anuncio">
+                <Link href="/pacotes">
+                    <div>
+                      <MdAttachMoney />
+                      <a onClick={handleUserOnClick}>Pacotes Premium</a>
+                    </div>
+                </Link>
+              </li>
+              <li>
+                <Link href="/usuario/meus-anuncios">
+                    <div>
+                      <RiAdvertisementLine />
+                      <a onClick={handleUserOnClick}>Meus Anúncio</a>
+                    </div>
+                </Link>
+              </li>
+              <li>
+                <Link href="/usuario/criar-anuncio">
                     <div>
                       <AiOutlineCar />
                       <a onClick={handleUserOnClick}>Criar Anúncio</a>
@@ -104,7 +124,7 @@ const MenuDropDown = styled.div`
   #dropdown {
     position: absolute;
     top: 45px;
-    left: -120px;
+    left: -140px;
 
     .sair:hover {
       cursor: pointer;

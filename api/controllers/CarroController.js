@@ -157,8 +157,15 @@ class CarroController {
   // PUT /images/:id
   async uploadImages(req, res) {
     const carro = await Carro.findOne({ _id: req.params.id })
+    const usuario = await Usuario.findById(req.payload.id)
 
     if (!carro) return res.status(400).send({ error: 'Carro não encontrado.' })
+    if(!usuario) return res.status(201).send({error: 'Usuário precisa estar logado. Faça o login novamente ou crie uma conta.'})
+
+    if(usuario.premium.free && carro.fotos.length >= 2) return res.send({error: 'Apenas 2 fotos são permitidas por carro para usuários free.'})
+    if(usuario.premium.bronze && carro.fotos.length >= 4) return res.send({error: 'Apenas 4 fotos são permitidas por carro para usuários bronze.'})
+    if(usuario.premium.platinum && carro.fotos.length >= 6) return res.send({error: 'Apenas 6 fotos são permitidas por carro para usuários platinum.'})
+    if(usuario.premium.gold && carro.fotos.length >= 8) return res.send({error: 'Apenas 8 fotos são permitidas por carro para usuários gold.'})
 
     const novasImagens = req.files.map((item) => item.filename)
     carro.fotos = carro.fotos.filter((item) => item).concat(novasImagens)

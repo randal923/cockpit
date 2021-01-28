@@ -7,6 +7,24 @@ const secret = require('../config').secret
 
 const UsuarioSchema = new mongoose.Schema(
   {
+    premium:{
+      bronze: {
+        type: Boolean,
+        default: false
+      },
+      platinum: {
+        type: Boolean,
+        default: false
+      },
+      gold: {
+        type: Boolean,
+        default: false
+      },
+      free: {
+        type: Boolean,
+        default: true
+      }
+    },
     nome: {
       type: String,
       required: [true, 'não pode ficar vazio.']

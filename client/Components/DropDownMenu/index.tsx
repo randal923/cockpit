@@ -52,9 +52,9 @@ const DropDown = styled.div`
     flex-direction: column;
     margin: 0;
     padding: 0;
+    width: 170px;
 
     li {
-      width: 100%;
       color: black;
       font-size: 1.3rem;
       padding: 15px;
